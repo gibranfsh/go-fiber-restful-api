@@ -1,4 +1,4 @@
-# CRUD RESTful API for a Online Library
+# CRUD RESTful API for an Online Library
 *Built using Go, GORM, and GoFiber*
 
 ## Commit Message Semantics
