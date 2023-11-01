@@ -57,3 +57,41 @@ func AuthorControllerPost (c *fiber.Ctx) error {
 		"author": author,
 	})
 }
+
+func AuthorControllerPut (c *fiber.Ctx) error {
+	id := c.Params("id")
+
+	var author entity.Author
+
+	if err := c.BodyParser(&author); err != nil {
+		log.Println("Error parsing author")
+	}
+
+	res := database.DB.Model(&author).Where("id = ?", id).Updates(author)
+
+	if res.Error != nil {
+		log.Println("Error updating author")
+	}
+
+	return c.JSON(fiber.Map{
+		"message": "Success updating author",
+		"author": author,
+	})
+}
+
+func AuthorControllerDelete (c *fiber.Ctx) error {
+	id := c.Params("id")
+
+	var author entity.Author
+
+	res := database.DB.Delete(&author, id)
+
+	if res.Error != nil {
+		log.Println("Error deleting author")
+	}
+
+	return c.JSON(fiber.Map{
+		"message": "Success deleting author",
+		"author": author,
+	})
+}

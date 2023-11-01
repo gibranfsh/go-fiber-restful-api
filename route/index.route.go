@@ -16,9 +16,13 @@ func SetupRoutes(app *fiber.App) {
 	books.Get("/", controller.BookControllerGetAll)
 	books.Get("/:id", controller.BookControllerGetById)
 	books.Post("/", controller.BookControllerPost)
+	books.Put("/:id", controller.BookControllerPut)
+	books.Delete("/:id", controller.BookControllerDelete)
 
 	authors := v1.Group("/authors")
 	authors.Get("/", controller.AuthorControllerGetAll)
 	authors.Get("/:id", controller.AuthorControllerGetById)
 	authors.Post("/", controller.AuthorControllerPost)
+	authors.Put("/:id", controller.AuthorControllerPut)
+	authors.Delete("/:id", controller.AuthorControllerDelete)
 }

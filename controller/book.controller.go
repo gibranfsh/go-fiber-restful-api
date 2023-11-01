@@ -58,4 +58,54 @@ func BookControllerPost(c *fiber.Ctx) error {
 	})
 }
 
+func BookControllerPut(c *fiber.Ctx) error {
+	id := c.Params("id")
+
+	var book entity.Book
+
+	res := database.DB.Find(&book, id)
+
+	if res.Error != nil {
+		log.Println("Error fetching book")
+	}
+
+	if err := c.BodyParser(&book); err != nil {
+		log.Println("Error parsing book")
+	}
+
+	res = database.DB.Save(&book)
+
+	if res.Error != nil {
+		log.Println("Error updating book")
+	}
+
+	return c.JSON(fiber.Map{
+		"message": "Success updating book",
+		"book":    book,
+	})
+}
+
+func BookControllerDelete(c *fiber.Ctx) error {
+	id := c.Params("id")
+
+	var book entity.Book
+
+	res := database.DB.Find(&book, id)
+
+	if res.Error != nil {
+		log.Println("Error fetching book")
+	}
+
+	res = database.DB.Delete(&book)
+
+	if res.Error != nil {
+		log.Println("Error deleting book")
+	}
+
+	return c.JSON(fiber.Map{
+		"message": "Success deleting book",
+		"book":    book,
+	})
+}
+
 // gibran CR, iyal UD
